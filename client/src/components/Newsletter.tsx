@@ -1,14 +1,39 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { useState } from "react";
 
 export default function Newsletter() {
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
+
+  const subscribe = useMutation({
+    mutationFn: async (email: string) => {
+      return await apiRequest("POST", "/api/newsletter", { email });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Successfully Subscribed!",
+        description: "You'll receive our latest patterns and updates.",
+      });
+      setEmail("");
+    },
+    onError: () => {
+      toast({
+        title: "Subscription Failed",
+        description: "You may already be subscribed or there was an error.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", email);
-    setEmail("");
+    if (email) {
+      subscribe.mutate(email);
+    }
   };
 
   return (
@@ -31,8 +56,12 @@ export default function Newsletter() {
             className="flex-1"
             data-testid="input-newsletter-email"
           />
-          <Button type="submit" data-testid="button-newsletter-submit">
-            Subscribe
+          <Button
+            type="submit"
+            disabled={subscribe.isPending}
+            data-testid="button-newsletter-submit"
+          >
+            {subscribe.isPending ? "Subscribing..." : "Subscribe"}
           </Button>
         </form>
         

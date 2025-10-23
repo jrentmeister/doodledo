@@ -5,9 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { useState } from "react";
 
 export default function CommissionForm() {
+  const { toast } = useToast();
   const [projectType, setProjectType] = useState("");
   const [budget, setBudget] = useState([500]);
   const [formData, setFormData] = useState({
@@ -16,9 +20,43 @@ export default function CommissionForm() {
     description: "",
   });
 
+  const createCommission = useMutation({
+    mutationFn: async (data: typeof formData & { projectType: string; budget: number }) => {
+      return await apiRequest("POST", "/api/commissions", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Commission Request Sent!",
+        description: "Thank you! I'll review your request and get back to you soon.",
+      });
+      setFormData({ name: "", email: "", description: "" });
+      setProjectType("");
+      setBudget([500]);
+    },
+    onError: () => {
+      toast({
+        title: "Submission Failed",
+        description: "Please check your information and try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Commission form submitted:", { ...formData, projectType, budget: budget[0] });
+    if (!projectType) {
+      toast({
+        title: "Project Type Required",
+        description: "Please select a project type.",
+        variant: "destructive",
+      });
+      return;
+    }
+    createCommission.mutate({
+      ...formData,
+      projectType,
+      budget: budget[0],
+    });
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -109,8 +147,14 @@ export default function CommissionForm() {
               </div>
             </div>
 
-            <Button type="submit" size="lg" className="w-full" data-testid="button-submit-commission">
-              Let's Create Together
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full"
+              disabled={createCommission.isPending}
+              data-testid="button-submit-commission"
+            >
+              {createCommission.isPending ? "Sending..." : "Let's Create Together"}
             </Button>
           </form>
         </Card>
