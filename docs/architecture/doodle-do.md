@@ -18,14 +18,14 @@ Preferred communication style: Simple, everyday language.
 
 **UI Component Library**: Radix UI primitives with shadcn/ui styling system, providing accessible, unstyled components that are customized through Tailwind CSS.
 
-**Styling Approach**: 
+**Styling Approach**:
 - Tailwind CSS with custom design tokens defined in CSS variables
 - Design system follows "New York" shadcn style variant
 - Custom color palette featuring soft pastels (blush pink primary, mint green secondary, lavender accents)
 - Typography using Google Fonts: Montserrat for headings, Raleway for body text
 - Elevation system using subtle overlays (`--elevate-1`, `--elevate-2`) for hover/active states
 
-**State Management**: 
+**State Management**:
 - TanStack Query (React Query) for server state management
 - Local component state with React hooks
 - No global client-side state management solution
@@ -120,9 +120,6 @@ Static assets stored in `attached_assets/generated_images/` directory with gener
 - **Vite**: Build tool and dev server
 - **tsx**: TypeScript execution for development
 - **esbuild**: Production bundling for server code
-- **@replit/vite-plugin-runtime-error-modal**: Development error overlay
-- **@replit/vite-plugin-cartographer**: Replit integration (development only)
-- **@replit/vite-plugin-dev-banner**: Development banner (development only)
 
 ### Third-Party Integrations
 - **Etsy**: External link integration for pattern purchases (URLs stored in pattern records)

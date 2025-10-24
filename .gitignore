@@ -1,6 +1,28 @@
+# Dependencies
 node_modules
+
+# Build output
 dist
-.DS_Store
 server/public
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# IDE
+.DS_Store
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
 vite.config.ts.*
 *.tar.gz
+favicon-replit-backup.png
+
+# Vercel
+.vercel

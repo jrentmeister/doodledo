@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Doodle Do - Pattern circles favicon -->
+  <!-- Brand colors: blush pink, mint green, lavender -->
+  <rect width="128" height="128" fill="#fafafa"/>
+
+  <!-- Row 1 -->
+  <circle cx="22" cy="22" r="12" fill="#f5d7e0"/>
+  <circle cx="64" cy="22" r="12" fill="#d8ede3"/>
+  <circle cx="106" cy="22" r="12" fill="#e8d8ed"/>
+
+  <!-- Row 2 -->
+  <circle cx="22" cy="64" r="12" fill="#d8ede3"/>
+  <circle cx="64" cy="64" r="12" fill="#e8d8ed"/>
+  <circle cx="106" cy="64" r="12" fill="#f5d7e0"/>
+
+  <!-- Row 3 -->
+  <circle cx="22" cy="106" r="12" fill="#e8d8ed"/>
+  <circle cx="64" cy="106" r="12" fill="#f5d7e0"/>
+  <circle cx="106" cy="106" r="12" fill="#d8ede3"/>
+</svg>
